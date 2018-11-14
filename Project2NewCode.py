@@ -268,6 +268,8 @@ for pr in range(30, 201, 1):
     iiRT.append(iiLaw(W_RankineTurbine, ri34[-1][0]))
     iiRP.append(iiLaw(ri12[-1][0], W_RankinePump))
     
+W_NET = [x / 1000 for x in W_NET]
+
 pr = numpy.linspace(3.0, 20.0, 171)
 pyplot.figure('Thermal Efficiency v. Pressure Ratio')
 pyplot.plot(pr, n_thermal)
@@ -319,9 +321,11 @@ partITable = DataFrame({'Pressure Ratio': pr, 'Efficiency': n_thermal,
                         'Net Power Output per Unit Mass, Air': W_NET})
 partITable.to_excel('Part1Table.xlsx', sheet_name = 'sheet1', index=False)
 
-partIITable = DataFrame({'Process': process, 'Irreversibility': irrPR,
-                         'Heat Transfer': QPR, 'Work': WPR, 
-                         'Change in Enthalpy': dHPR})
+partIITable = DataFrame({'Process': process, 
+                         'Irreversibility': [x / 1000 for x in irrPR],
+                         'Heat Transfer': [x / 1000 for x in QPR], 
+                         'Work': [x / 1000 for x in WPR], 
+                         'Change in Enthalpy': [x / 1000 for x in dHPR]})
     
 partIITable.to_excel('Part2Table.xlsx', sheet_name = 'sheet1', index=False)
 
